@@ -1,7 +1,7 @@
 ﻿using BudgetHelper.Core;
 using Microsoft.EntityFrameworkCore;
 
-namespace BudgetHelper
+namespace BudgetHelper.Views
 {
     public partial class MainPage : ContentPage
     {
@@ -15,15 +15,18 @@ namespace BudgetHelper
         {
             InitializeComponent();
             this.ctx = ctx;
+            
         }
 
         private async void OnCounterClicked(object sender, EventArgs e)
         {
 
-            var text = await ctx.Categories
-                .Select(c => c.Name)
-                .ToListAsync();
-            TestLabel.Text = string.Join(" ,", text);
+            //var text = await ctx.Categories
+            //    .Select(c => c.Name)
+            //    .ToListAsync();
+            //TestLabel.Text = string.Join(" ,", text);
+
+           
             //count++;
 
             //if (count == 1)
