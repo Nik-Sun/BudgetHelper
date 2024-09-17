@@ -1,17 +1,20 @@
 using BudgetHelper.Core;
+using BudgetHelper.Core.Entities;
+using BudgetHelper.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Maui.Controls;
 
 namespace BudgetHelper.Views;
 
 public partial class AddExpense : ContentPage
 {
     private readonly ApplicationDbContext ctx;
-
+    
     public AddExpense(ApplicationDbContext ctx)
     {
         InitializeComponent();
         this.ctx = ctx;
-
+       
     }
 
     protected override async void OnAppearing()
@@ -22,35 +25,61 @@ public partial class AddExpense : ContentPage
 
     private async Task PopulateControl()
     {
-        var existing = await ctx.ExpenseTypes.Select(x => x.Name)
-            .ToListAsync();
-        if (CategoryList.Items.Count > 0)
+        //var existing = await ctx.ExpenseTypes.Select(x => x.Name)
+        //    .ToListAsync();
+        var existeng = await ctx.ExpenseTypes.Select(et => new ExpenseViewModel()
         {
-            CategoryList.Items.Clear();
-        }
-        foreach (var expenseType in existing)
-        {
-            CategoryList.Items.Add(expenseType);
-        }
+            Name = et.Name,
+            TypeId = et.Id,
+            Value = 0
 
-        CategoryList.Items.Add(" {Add a new type of expense} ");
-        CategoryList.SelectedIndex = 0;
-        
+        }).ToListAsync();
+        existeng.Add(new ExpenseViewModel()
+        {
+            Name = " {Add a new type of expense} "
+        });
+        if (ExpenseList.Items.Count > 0)
+        {
+            ExpenseList.Items.Clear(); 
+            ExpenseList.ItemsSource.Clear();
+        }
+        ExpenseList.ItemsSource = existeng;
+        ExpenseList.ItemDisplayBinding = new Binding("Name");
+        //foreach (var expenseType in existeng)
+        //{
+        //    ExpenseList.Items.Add(expenseType.Name);
+        //}
+
+        //ExpenseList.Items.Add(" {Add a new type of expense} ");
+        // CategoryList.SelectedIndex = 0;
+
     }
 
     private async void OnPickerSelectedIndexChanged(object sender, EventArgs e)
     {
         var picker = (Picker)sender;
-        var option = (string)picker.SelectedItem;
-        if(option == " {Add a new type of expense} ")
+        var option = (ExpenseViewModel)picker.SelectedItem;
+        if (option.Name == " {Add a new type of expense} ")
         {
             await Shell.Current.GoToAsync("MainPage");
         }
-        else
-        {
-            MainStack.Children.Add(new Entry());
-        }
     }
 
-   
+    private void SaveButtonClicked(object sender, EventArgs e)
+    {
+        string value = ExpenseValue.Text;
+        var selected = (ExpenseViewModel)ExpenseList.SelectedItem;
+
+        if (decimal.TryParse(value, out decimal result) && result > 0)
+        {
+            var expense = new Expense()
+            {
+                Value = result,
+                Created = DateTime.UtcNow,
+                TypeId = selected.TypeId
+            };
+
+            
+        }
+    }
 }
