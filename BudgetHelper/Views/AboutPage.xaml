@@ -7,18 +7,58 @@
     <ContentPage.BindingContext>
         <local:ViewModel/>
     </ContentPage.BindingContext>
-    <VerticalStackLayout Spacing="10" Margin="10">
-        <dx:PieChartView>
+   
+        <dx:PieChartView
+            x:Name="Pichart"
+            BackgroundColor="Black">
+        <dx:PieChartView.Hint>
+            <dx:PieHint Enabled="True">
+                <!-- ... -->
+            </dx:PieHint>
+        </dx:PieChartView.Hint>
+        <dx:PieChartView.Legend>
+            <dx:Legend>
+                <dx:Legend.Style>
+                    <dx:LegendStyle BorderColor="LightGray" BorderThickness="1"
+                                BackgroundColor="#424651"
+                                MarkerSize="18" TextIndent="6"
+                                ItemsVerticalIndent="12">
+                        <dx:LegendStyle.TextStyle>
+                            <dx:TextStyle Color="White" Size="12"/>
+                        </dx:LegendStyle.TextStyle>
+                    </dx:LegendStyle>
+                </dx:Legend.Style>
+            </dx:Legend>
+        </dx:PieChartView.Legend>
+        <dx:PieChartView.ChartStyle
+                SelectionBehavior="Hatch">
+                <dx:PieChartStyle Palette="{Binding Palette}" 
+                          BackgroundColor="Aquamarine"/>
+            </dx:PieChartView.ChartStyle>
             <dx:PieChartView.Series>
                 <dx:DonutSeries>
-                    <dx:DonutSeries.Data>
+                <dx:DonutSeries.CenterLabel>
+                    <dx:PieCenterTextLabel TextPattern="{}Total&#x0a;{TV}"/>
+                </dx:DonutSeries.CenterLabel>
+                <!--<dx:DonutSeries.Label>
+                    <dx:PieSeriesLabel>
+                        <dx:PieSeriesLabel.Style>
+                            <dx:PieSeriesLabelStyle ConnectorThickness="1">
+                                <dx:PieSeriesLabelStyle.TextStyle>
+                                    <dx:TextStyle Color="#eff2f6" Size="12"/>
+                                </dx:PieSeriesLabelStyle.TextStyle>
+                            </dx:PieSeriesLabelStyle>
+                        </dx:PieSeriesLabel.Style>
+                    </dx:PieSeriesLabel>
+                </dx:DonutSeries.Label>-->
+                <dx:DonutSeries.Data>
                         <dx:PieSeriesDataAdapter DataSource="{Binding LandAreas}"
                                          LabelDataMember="CountryName"
                                          ValueDataMember="Area"/>
                     </dx:DonutSeries.Data>
-                    <!-- ... -->
+                    
                 </dx:DonutSeries>
             </dx:PieChartView.Series>
         </dx:PieChartView>
-    </VerticalStackLayout>
+    
 </ContentPage>

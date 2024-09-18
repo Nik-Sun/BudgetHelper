@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BudgetHelper.Models
+﻿namespace BudgetHelper.Models
 {
     class ViewModel
     {
@@ -22,12 +16,25 @@ namespace BudgetHelper.Models
                 new LandAreaItem("Australia", 7.692),
                 new LandAreaItem("India", 3.287),
                 new LandAreaItem("Others", 81.2)
+
+              
             };
-            // ...
+            palette = PaletteLoader.LoadPalette("#975ba5", "#03bfc1", "#f8c855", "#f45a4e",
+                                          "#496cbe", "#f58f35", "#d293fd", "#25a966");
         }
-        // ...
+        private readonly Color[] palette;
+        public Color[] Palette => palette;
     }
-    // ...
+    static class PaletteLoader
+    {
+        public static Color[] LoadPalette(params string[] values)
+        {
+            Color[] colors = new Color[values.Length];
+            for (int i = 0; i < values.Length; i++)
+                colors[i] = Color.FromArgb(values[i]);
+            return colors;
+        }
+    }
     class LandAreaItem
     {
         public string CountryName { get; }

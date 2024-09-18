@@ -25,7 +25,8 @@ namespace BudgetHelper
                 .UseMauiCompatibility()
                 .Services.AddSingleton<ApplicationDbContext>()
                 .AddTransient<MainPage>()
-                .AddTransient<AddExpense>();
+                .AddTransient<AddExpense>()
+                .AddTransient<AboutPage>();
             // builder.Services.AddSingleton<TodoItemDatabase>();
             //builder.Services.AddTransient<MainPage>();
 #if DEBUG

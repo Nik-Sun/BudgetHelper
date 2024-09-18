@@ -8,19 +8,30 @@
     Title="BudgetHelper">
 
     <TabBar>
-        <ShellContent
-            Title="Notes"
-            ContentTemplate="{DataTemplate views:MainPage}"
-            Icon="{OnPlatform 'icon_notes.png', iOS='icon_notes_ios.png', MacCatalyst='icon_notes_ios.png'}" />
 
-        <ShellContent
-            Title="About"
-            ContentTemplate="{DataTemplate views:AboutPage}"
-            Icon="{OnPlatform 'icon_about.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}" />
-        <ShellContent
-            Title="Add expense"
-            ContentTemplate="{DataTemplate views:AddExpense}"
-            Icon="{OnPlatform 'icon_about.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}" />
+
+        <Tab Title="Main" x:Name="MainPageSection" Icon="{OnPlatform 'icon_about.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}">
+            <ShellContent
+                x:Name="NotesTab"
+                Title="Notes"
+                Route="MainPage"
+                ContentTemplate="{DataTemplate views:MainPage}"
+                Icon="{OnPlatform 'icon_notes.png', iOS='icon_notes_ios.png', MacCatalyst='icon_notes_ios.png'}"/>
+        </Tab>
+        <Tab Title="About" x:Name="AboutSection" Icon="{OnPlatform 'icon_about.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}">
+            <ShellContent
+                Title="About"
+                Route="AboutPage"
+                ContentTemplate="{DataTemplate views:AboutPage}"/>
+        </Tab>
+        <Tab Title="Add expense" x:Name="AddExpenseSection" Icon="{OnPlatform 'icon_about.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}">
+            <ShellContent
+                Route="AddExpense"
+                Title="Add expense"
+                ContentTemplate="{DataTemplate views:AddExpense}"
+                Icon="{OnPlatform 'icon_about.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}"/>
+        </Tab>
+
     </TabBar>
 
 </Shell>

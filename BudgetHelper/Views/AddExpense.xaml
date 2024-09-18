@@ -21,7 +21,6 @@
                   Style="{StaticResource Picker}"
                   FontSize="Large"
                   x:Name="ExpenseList"
-                  
                   Title="Select a category for the expense:"
                   SelectedIndexChanged="OnPickerSelectedIndexChanged"/>
         </Border>

@@ -25,6 +25,7 @@ public partial class AddExpense : ContentPage
 
     private async Task PopulateControl()
     {
+        //ExpenseList = new Picker();
         //var existing = await ctx.ExpenseTypes.Select(x => x.Name)
         //    .ToListAsync();
         var existeng = await ctx.ExpenseTypes.Select(et => new ExpenseViewModel()
@@ -34,17 +35,15 @@ public partial class AddExpense : ContentPage
             Value = 0
 
         }).ToListAsync();
+
         existeng.Add(new ExpenseViewModel()
         {
             Name = " {Add a new type of expense} "
         });
-        if (ExpenseList.Items.Count > 0)
-        {
-            ExpenseList.Items.Clear(); 
-            ExpenseList.ItemsSource.Clear();
-        }
+        
         ExpenseList.ItemsSource = existeng;
         ExpenseList.ItemDisplayBinding = new Binding("Name");
+        ExpenseList.SelectedIndex = 0;
         //foreach (var expenseType in existeng)
         //{
         //    ExpenseList.Items.Add(expenseType.Name);
@@ -59,9 +58,12 @@ public partial class AddExpense : ContentPage
     {
         var picker = (Picker)sender;
         var option = (ExpenseViewModel)picker.SelectedItem;
-        if (option.Name == " {Add a new type of expense} ")
+        if (option.TypeId == 0)
         {
-            await Shell.Current.GoToAsync("MainPage");
+            await Shell.Current.GoToAsync($"///{nameof(AboutPage)}");
+
+           
+            
         }
     }
 
