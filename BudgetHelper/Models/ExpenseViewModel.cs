@@ -11,5 +11,7 @@ namespace BudgetHelper.Models
         public string Name { get; set; }
         public int TypeId { get; set; }
         public decimal Value { get; set; }
+
+        public IReadOnlyList<LandAreaItem> TestProp { get; set; }
     }
 }

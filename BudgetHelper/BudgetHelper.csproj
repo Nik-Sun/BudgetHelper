@@ -57,6 +57,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Views\AboutPage.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Remove="Views\AboutPage.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="DevExpress.Maui.Charts" Version="24.1.5" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
@@ -81,10 +89,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\AboutPage.xaml">
+	  <MauiXaml Update="Views\AddExpense.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\AddExpense.xaml">
+	  <MauiXaml Update="Views\CategoryDetailsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ExpensesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

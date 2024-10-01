@@ -20,9 +20,9 @@
         </Tab>
         <Tab Title="About" x:Name="AboutSection" Icon="{OnPlatform 'icon_about.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}">
             <ShellContent
-                Title="About"
-                Route="AboutPage"
-                ContentTemplate="{DataTemplate views:AboutPage}"/>
+                Title="SomeTitle"
+                Route="ExpensePage"
+                ContentTemplate="{DataTemplate views:ExpensePage}"/>
         </Tab>
         <Tab Title="Add expense" x:Name="AddExpenseSection" Icon="{OnPlatform 'icon_about.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}">
             <ShellContent

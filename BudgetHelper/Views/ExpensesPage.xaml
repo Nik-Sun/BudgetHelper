@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             xmlns:local="clr-namespace:BudgetHelper.Models"
+             x:Class="BudgetHelper.Views.ExpensePage">
+    <!--<ContentPage.BindingContext>
+        <local:ChartViewModel/>
+    </ContentPage.BindingContext>-->
+    <ScrollView>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="600"/>
+                </Grid.RowDefinitions>
+                <Border
+                BackgroundColor="LightGray"
+                Margin="15"
+                Grid.Row="0"
+                HeightRequest="80"
+                VerticalOptions="Start"
+                Stroke="DarkGray"
+                StrokeThickness="5">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20,20,20,20" />
+                    </Border.StrokeShape>
+                    <Picker 
+                    SelectedIndexChanged="CustomDatePicker_SelectedIndexChanged"
+                    Title="Select Date"
+                    Margin="10, 0, 0, 0"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource Picker}"
+                    FontSize="Large"
+                    x:Name="CustomDatePicker"/>
+                </Border>
+
+
+                <dx:PieChartView
+                Grid.Row="1"
+                x:Name="Pichart"
+                BackgroundColor="Black">
+                    <dx:PieChartView.Hint>
+                        <dx:PieHint Enabled="True">
+                        </dx:PieHint>
+                    </dx:PieChartView.Hint>
+                    <dx:PieChartView.Legend>
+                        <dx:Legend>
+                            <dx:Legend.Style>
+                                <dx:LegendStyle BorderColor="LightGray" BorderThickness="1"
+                         BackgroundColor="#424651"
+                         MarkerSize="18" TextIndent="6"
+                         ItemsVerticalIndent="12">
+                                    <dx:LegendStyle.TextStyle>
+                                        <dx:TextStyle Color="White" Size="12"/>
+                                    </dx:LegendStyle.TextStyle>
+                                </dx:LegendStyle>
+                            </dx:Legend.Style>
+                        </dx:Legend>
+                    </dx:PieChartView.Legend>
+                    <dx:PieChartView.ChartStyle
+         SelectionBehavior="Hatch">
+                        <dx:PieChartStyle Palette="{Binding Palette}" 
+                   BackgroundColor="Aquamarine"/>
+                    </dx:PieChartView.ChartStyle>
+                    <dx:PieChartView.Series>
+                        <dx:DonutSeries>
+                            <dx:DonutSeries.CenterLabel>
+                                <dx:PieCenterTextLabel TextPattern="{}Общо&#x0a;{TV}лв"/>
+                            </dx:DonutSeries.CenterLabel>
+                            <dx:DonutSeries.Data>
+                                <dx:PieSeriesDataAdapter
+                                  x:Name="MyData"
+                                  DataSource="{Binding DisplayData}"
+                                  LabelDataMember="SliceName"
+                                  ValueDataMember="SliceValue"/>
+                            </dx:DonutSeries.Data>
+
+                        </dx:DonutSeries>
+                    </dx:PieChartView.Series>
+                </dx:PieChartView>
+            </Grid>
+            <StackLayout x:Name="MyView">
+
+            </StackLayout>
+        </StackLayout>
+
+    </ScrollView>
+
+</ContentPage>

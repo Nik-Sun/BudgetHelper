@@ -2,19 +2,17 @@ using BudgetHelper.Core;
 using BudgetHelper.Core.Entities;
 using BudgetHelper.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Maui.Controls;
 
 namespace BudgetHelper.Views;
 
 public partial class AddExpense : ContentPage
 {
     private readonly ApplicationDbContext ctx;
-    
+
     public AddExpense(ApplicationDbContext ctx)
     {
         InitializeComponent();
         this.ctx = ctx;
-       
     }
 
     protected override async void OnAppearing()
@@ -25,9 +23,7 @@ public partial class AddExpense : ContentPage
 
     private async Task PopulateControl()
     {
-        //ExpenseList = new Picker();
-        //var existing = await ctx.ExpenseTypes.Select(x => x.Name)
-        //    .ToListAsync();
+        
         var existeng = await ctx.ExpenseTypes.Select(et => new ExpenseViewModel()
         {
             Name = et.Name,
@@ -44,13 +40,7 @@ public partial class AddExpense : ContentPage
         ExpenseList.ItemsSource = existeng;
         ExpenseList.ItemDisplayBinding = new Binding("Name");
         ExpenseList.SelectedIndex = 0;
-        //foreach (var expenseType in existeng)
-        //{
-        //    ExpenseList.Items.Add(expenseType.Name);
-        //}
-
-        //ExpenseList.Items.Add(" {Add a new type of expense} ");
-        // CategoryList.SelectedIndex = 0;
+      
 
     }
 
@@ -60,14 +50,11 @@ public partial class AddExpense : ContentPage
         var option = (ExpenseViewModel)picker.SelectedItem;
         if (option.TypeId == 0)
         {
-            await Shell.Current.GoToAsync($"///{nameof(AboutPage)}");
-
-           
-            
+            await Shell.Current.GoToAsync($"///{nameof(ExpensePage)}");
         }
     }
 
-    private void SaveButtonClicked(object sender, EventArgs e)
+    private async void SaveButtonClicked(object sender, EventArgs e)
     {
         string value = ExpenseValue.Text;
         var selected = (ExpenseViewModel)ExpenseList.SelectedItem;
@@ -77,11 +64,23 @@ public partial class AddExpense : ContentPage
             var expense = new Expense()
             {
                 Value = result,
-                Created = DateTime.UtcNow,
-                TypeId = selected.TypeId
+                Created = DateTime.Now,
+                TypeId = selected.TypeId,
             };
+            try
+            {
+                ctx.Expenses.Add(expense);
+                await ctx.SaveChangesAsync();
+                ExpenseValue.Text = string.Empty;
+                ExpenseList.SelectedIndex = 0;
+                await Shell.Current.GoToAsync($"///{nameof(ExpensePage)}");
+            }
+            catch (Exception ex)
+            {
 
-            
+               throw ex.InnerException;
+            }
+           
         }
     }
 }

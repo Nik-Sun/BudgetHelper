@@ -1,8 +1,11 @@
 ﻿using BudgetHelper.Core;
+using BudgetHelper.Models;
 using BudgetHelper.Views;
 using DevExpress.Maui;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Controls.Compatibility.Hosting;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+
 
 namespace BudgetHelper
 {
@@ -26,9 +29,25 @@ namespace BudgetHelper
                 .Services.AddSingleton<ApplicationDbContext>()
                 .AddTransient<MainPage>()
                 .AddTransient<AddExpense>()
-                .AddTransient<AboutPage>();
-            // builder.Services.AddSingleton<TodoItemDatabase>();
-            //builder.Services.AddTransient<MainPage>();
+                .AddTransient<ChartViewModel>()
+                .AddTransient<CategoryDetailsPage>()
+                .AddTransient<ExpensePage>();
+          
+            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("Placeholder", (h, v) =>
+            {
+#if ANDROID
+                h.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
+#endif
+#if IOS
+                h.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+#endif
+            });
+            Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping("PickerCustomization", (handler, view) =>
+            {
+#if ANDROID
+                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
+#endif
+            });
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

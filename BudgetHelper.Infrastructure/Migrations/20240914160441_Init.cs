@@ -95,7 +95,7 @@ namespace BudgetHelper.Infrastructure.Migrations
                 name: "IX_Expenses_TypeId",
                 table: "Expenses",
                 column: "TypeId",
-                unique: true);
+                unique: false);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExpenseTypes_CategoryId",

@@ -18,27 +18,10 @@ namespace BudgetHelper.Views
         private async void OnCounterClicked(object sender, EventArgs e)
         {
 
-        //    //var text = await ctx.Categories
-        //    //    .Select(c => c.Name)
-        //    //    .ToListAsync();
-        //    //TestLabel.Text = string.Join(" ,", text);
+          
 
-           
-        //    //count++;
 
-        //    //if (count == 1)
-        //    //{
-        //    //    var itemsCount =  await ctx.GetCountAsync(); 
-        //    //    CounterBtn.Text = $"Clicked {itemsCount} time";
 
-        //    //}
-
-        //    //else
-        //    //{
-        //    //    CounterBtn.Text = $"Clicked {count} times";
-        //    //    await ctx.SaveItemAsync(new ToDoItem() {Value = $"{count}"});
-        //    //}
-                
 
 
             SemanticScreenReader.Announce(CounterBtn.Text);

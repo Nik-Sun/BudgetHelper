@@ -8,6 +8,7 @@ namespace BudgetHelper.Core
         public ApplicationDbContext()
         {
             //this.Database.Migrate();
+            this.Database.EnsureDeleted();
             this.Database.EnsureCreated();
         }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -29,18 +30,21 @@ namespace BudgetHelper.Core
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Category>()
+                .ToTable("Categories");
+
             modelBuilder.Entity<Expense>()
                  .HasOne(e => e.Type)
-                 .WithOne(n => n.Expense)
-                 .HasForeignKey<Expense>(e => e.TypeId);
+                 .WithMany(t => t.Expenses)
+                 .HasForeignKey(e => e.TypeId);
 
             modelBuilder.Entity<ExpenseType>()
                 .HasOne(en => en.Category)
                 .WithMany(c => c.Types)
                 .HasForeignKey(en => en.CategoryId);
 
-            modelBuilder.Entity<Category>()
-                .ToTable("Categories");
+            
 
             modelBuilder.Entity<ExpenseType>()
                 .HasData(InitialSeed.SeedExpenseTypes());

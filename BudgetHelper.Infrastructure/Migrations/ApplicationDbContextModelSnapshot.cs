@@ -79,7 +79,7 @@ namespace BudgetHelper.Infrastructure.Migrations
                     b.HasIndex("TypeId")
                         .IsUnique();
 
-                    b.ToTable("Expenses");
+                    b.ToTable("Expenses", (string)null);
                 });
 
             modelBuilder.Entity("BudgetHelper.Core.Entities.ExpenseType", b =>
@@ -99,7 +99,7 @@ namespace BudgetHelper.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("ExpenseTypes");
+                    b.ToTable("ExpenseTypes", (string)null);
 
                     b.HasData(
                         new

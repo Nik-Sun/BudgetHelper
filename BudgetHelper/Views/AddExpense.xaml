@@ -7,17 +7,27 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="150"/>
             <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
 
         <Border
+            BackgroundColor="LightGray"
+            Margin="15"
             Grid.Row="0"
             HeightRequest="80"
             VerticalOptions="Start"
+            Stroke="DarkGray"
+            StrokeThickness="5"
                >
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20,20,20,20" />
+            </Border.StrokeShape>
             <Picker 
+                  Margin="10, 0, 0, 0"
+                  VerticalTextAlignment="Center"
+                  HorizontalTextAlignment="Center"
                   Style="{StaticResource Picker}"
                   FontSize="Large"
                   x:Name="ExpenseList"
@@ -26,12 +36,18 @@
         </Border>
 
         <Border
+                Margin="15"
                 BackgroundColor="LightGray"
-                Grid.Row="1">
+                Grid.Row="1"
+                Stroke="Black"
+                StrokeThickness="5">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20,20,20,20" />
+            </Border.StrokeShape>
             <Entry
-                
+                 Margin="0,15,0,15"
                  HorizontalTextAlignment="Center"
-                 FontSize="50"
+                 FontSize="40"
                  Keyboard="Numeric"
                  x:Name="ExpenseValue"/>
         </Border>
