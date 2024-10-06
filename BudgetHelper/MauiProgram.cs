@@ -2,9 +2,13 @@
 using BudgetHelper.Models;
 using BudgetHelper.Views;
 using DevExpress.Maui;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Controls.Compatibility.Hosting;
+#if ANDROID
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using System;
+#endif
 
 
 namespace BudgetHelper
@@ -25,14 +29,18 @@ namespace BudgetHelper
                     fonts.AddFont("roboto-bold.ttf", "Roboto-Bold");
                     fonts.AddFont("roboto-regular.ttf", "Roboto");
                 })
-                .UseMauiCompatibility()
-                .Services.AddSingleton<ApplicationDbContext>()
+                .Services.AddDbContext<ApplicationDbContext>(opt =>
+                {
+                    opt.UseSqlite("Filename=app.db");
+                })
                 .AddTransient<MainPage>()
                 .AddTransient<AddExpense>()
                 .AddTransient<ChartViewModel>()
                 .AddTransient<CategoryDetailsPage>()
-                .AddTransient<ExpensePage>();
-          
+                .AddTransient<ExpensePage>()
+                .AddTransient<AddNewTypePage>();
+            
+
             Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("Placeholder", (h, v) =>
             {
 #if ANDROID
@@ -52,7 +60,14 @@ namespace BudgetHelper
             builder.Logging.AddDebug();
 #endif
 
-            return builder.Build();
+             var app =builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                dbContext.Database.Migrate(); // Apply pending migrations
+            }
+            return app;
         }
     }
 }

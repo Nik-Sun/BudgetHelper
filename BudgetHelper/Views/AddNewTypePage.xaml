@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BudgetHelper.Views.AddExpense"
-             Title="Add Expense"
+             x:Class="BudgetHelper.Views.AddNewTypePage"
+             Title="Add New Type"
              Background="{StaticResource GradientBrush}">
-   
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
 
         <Border
+            BackgroundColor="LightGray"
             Margin="15"
             Grid.Row="0"
-            HeightRequest="80"
             VerticalOptions="Start"
             Stroke="DarkGray"
             StrokeThickness="5"
@@ -24,38 +24,40 @@
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20,20,20,20" />
             </Border.StrokeShape>
-            <Picker 
-                  Margin="10, 0, 0, 0"
-                  VerticalTextAlignment="Center"
-                  HorizontalTextAlignment="Center"
-                  Style="{StaticResource Picker}"
-                  FontSize="Large"
-                  x:Name="ExpenseList"
-                  Title="Select a category for the expense:"
-                  SelectedIndexChanged="OnPickerSelectedIndexChanged"/>
+            <Entry
+                Placeholder="Име на новия тип:"
+                Margin="0,15,0,15"
+                HorizontalTextAlignment="Center"
+                FontSize="25"
+                Keyboard="Chat"
+                x:Name="AddTypeField"/>
         </Border>
-
         <Border
+                BackgroundColor="LightGray"
                 Margin="15"
                 Grid.Row="1"
+                HeightRequest="80"
+                VerticalOptions="Start"
                 Stroke="DarkGray"
                 StrokeThickness="5">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20,20,20,20" />
             </Border.StrokeShape>
-            <Entry
-                 Margin="0,15,0,15"
-                 HorizontalTextAlignment="Center"
-                 FontSize="40"
-                 Keyboard="Default"
-                 x:Name="ExpenseValue"/>
+            <Picker 
+           Margin="10, 0, 0, 0"
+           VerticalTextAlignment="Center"
+           HorizontalTextAlignment="Center"
+           Style="{StaticResource Picker}"
+           FontSize="Medium"
+           x:Name="CategoryList"
+           Title="Изберете категория за новия тип:"/>
         </Border>
+
         <Border
             VerticalOptions="End"
             Grid.Row="2"
             Margin="15"
             StrokeShape="RoundRectangle 8">
-            
             <Button 
                 HeightRequest="100"
                 Text="Save"

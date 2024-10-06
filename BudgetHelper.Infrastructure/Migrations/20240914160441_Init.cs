@@ -72,11 +72,18 @@ namespace BudgetHelper.Infrastructure.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Sport" },
-                    { 2, "Comunal Expenses" },
-                    { 3, "Outoors and Fun" },
-                    { 4, "Shopping" },
-                    { 5, "Groceries" }
+                    { 1, "Домашни любимци" },
+                    { 2, "Битови сметки" },
+                    { 3, "Спорт" },
+                    { 4, "Домашни потерби" },
+                    { 5, "Хранителни стоки" },
+                    { 6, "Ресторанти и развлечения" },
+                    { 7, "Здраве" },
+                    { 8, "Красота" },
+                    { 9, "Авто разходи" },
+                    { 10, "Подаръци" },
+                    { 11, "Други разходи" },
+
                 });
 
             migrationBuilder.InsertData(
@@ -84,11 +91,17 @@ namespace BudgetHelper.Infrastructure.Migrations
                 columns: new[] { "Id", "CategoryId", "Name" },
                 values: new object[,]
                 {
-                    { 1, 2, "Electricity" },
-                    { 2, 2, "Water" },
-                    { 3, 2, "Phones" },
-                    { 4, 2, "Internet and TV" },
-                    { 5, 5, "Food" }
+                    { 1, 2, "Електричество" },
+                    { 2, 2, "Вода" },
+                    { 3, 2, "Телефони" },
+                    { 4, 2, "Интернет и ТВ" },
+                    { 5, 2, "Spotify" },
+                    { 6, 2, "Топлофикация" },
+                    { 7, 2, "Такса вход" },
+                    { 8, 5, "Lidl" },
+                    { 9, 5, "Kaufland" },
+                    { 10, 5, "Фантастико" },
+                    { 11, 5, "ЦБА" },
                 });
 
             migrationBuilder.CreateIndex(

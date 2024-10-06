@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetHelper", "BudgetHelper\BudgetHelper.csproj", "{DAB1101F-914F-4544-8E14-DEEE1A52F68E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetHelper.Infrastructure", "BudgetHelper.Infrastructure\BudgetHelper.Infrastructure.csproj", "{72B70F2E-4E44-47B3-AD6E-7CD0E87626C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetHelper.Infrastructure", "BudgetHelper.Infrastructure\BudgetHelper.Infrastructure.csproj", "{72B70F2E-4E44-47B3-AD6E-7CD0E87626C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,13 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BudgetHelper.Core.Entities
+namespace BudgetHelper.Models
 {
-    public class Category
+    public class CategoryPickerModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public HashSet<ExpenseType> Types { get; set; }
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

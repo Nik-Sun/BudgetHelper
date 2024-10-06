@@ -7,9 +7,7 @@ namespace BudgetHelper.Core
     {
         public ApplicationDbContext()
         {
-            //this.Database.Migrate();
-            this.Database.EnsureDeleted();
-            this.Database.EnsureCreated();
+            
         }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         {

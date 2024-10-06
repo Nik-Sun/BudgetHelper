@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:dx="http://schemas.devexpress.com/maui"
              xmlns:local="clr-namespace:BudgetHelper.Models"
-             x:Class="BudgetHelper.Views.ExpensePage">
+             x:Class="BudgetHelper.Views.ExpensePage"
+             Background="{StaticResource GradientBrush}">
     <!--<ContentPage.BindingContext>
         <local:ChartViewModel/>
     </ContentPage.BindingContext>-->
@@ -61,8 +62,7 @@
                     </dx:PieChartView.Legend>
                     <dx:PieChartView.ChartStyle
          SelectionBehavior="Hatch">
-                        <dx:PieChartStyle Palette="{Binding Palette}" 
-                   BackgroundColor="Aquamarine"/>
+                        <dx:PieChartStyle Palette="{Binding Palette}"/>
                     </dx:PieChartView.ChartStyle>
                     <dx:PieChartView.Series>
                         <dx:DonutSeries>

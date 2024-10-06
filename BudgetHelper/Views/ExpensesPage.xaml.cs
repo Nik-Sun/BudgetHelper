@@ -1,8 +1,5 @@
 ﻿using BudgetHelper.Models;
-using DevExpress.Maui.Charts;
-using Java.Time;
 using Microsoft.Maui.Controls.Shapes;
-using System.Data.Common;
 
 namespace BudgetHelper.Views;
 
@@ -18,7 +15,7 @@ public partial class ExpensePage : ContentPage
 
     protected override void OnAppearing()
     {
-
+        base.OnAppearing();
         if (isReload == false)
         {
             _model.PopulateData();
@@ -44,7 +41,7 @@ public partial class ExpensePage : ContentPage
             isReload = false;
         }
 
-        base.OnAppearing();
+      
     }
 
     private void CustomDatePicker_SelectedIndexChanged(object? sender, EventArgs e)
@@ -66,20 +63,12 @@ public partial class ExpensePage : ContentPage
 
     private Border CreateLabel(string name, string value)
     {
-        var label = new Label
-        {
-            Text = $"{name} ==== {value}лв",
-            FontSize = 18,
-            TextColor = Colors.Black,
-            HorizontalOptions = LayoutOptions.Fill,
-            VerticalOptions = LayoutOptions.Center,
-            Padding = new Thickness(10)
-        };
+        
 
         var button = new Button()
         {
-            Text = $"{name} ==== {value}лв",
-            FontSize = 14,
+            Text = $"{name} => {value}лв",
+            FontSize = 15,
             Background = new LinearGradientBrush
             {
                 StartPoint = new Point(0, 0),
@@ -91,8 +80,8 @@ public partial class ExpensePage : ContentPage
                 }
             },
             TextColor = Colors.Black,
-            HorizontalOptions = LayoutOptions.Fill,
-            VerticalOptions = LayoutOptions.Center,
+            HorizontalOptions = LayoutOptions.Center,
+           // VerticalOptions = LayoutOptions.Center,
 
         };
 
@@ -104,7 +93,7 @@ public partial class ExpensePage : ContentPage
             Stroke = Colors.DarkGray,
             StrokeShape = new RoundRectangle
             {
-                CornerRadius = new CornerRadius(10)
+                CornerRadius = new CornerRadius(11)
             },
             Padding = new Thickness(5),
             Margin = new Thickness(5),
@@ -122,7 +111,6 @@ public partial class ExpensePage : ContentPage
         };
 
 
-
         return frame;
     }
 
@@ -130,7 +118,7 @@ public partial class ExpensePage : ContentPage
     {
         isReload = true;
         var button = sender as Button;
-        var categoryName = button.Text.Split(" ==== ")[0];
+        var categoryName = button.Text.Split(" => ")[0];
         var date = CustomDatePicker.Title;
         var parameters = new Dictionary<string, object>()
         {

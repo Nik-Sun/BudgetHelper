@@ -10,26 +10,24 @@
     <TabBar>
 
 
-        <Tab Title="Main" x:Name="MainPageSection" Icon="{OnPlatform 'icon_about.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}">
+        <Tab Title="Главно меню" x:Name="MainPageSection" Icon="{OnPlatform 'home.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}">
             <ShellContent
                 x:Name="NotesTab"
-                Title="Notes"
+                Title="Home"
                 Route="MainPage"
-                ContentTemplate="{DataTemplate views:MainPage}"
-                Icon="{OnPlatform 'icon_notes.png', iOS='icon_notes_ios.png', MacCatalyst='icon_notes_ios.png'}"/>
+                ContentTemplate="{DataTemplate views:MainPage}"/>
         </Tab>
-        <Tab Title="About" x:Name="AboutSection" Icon="{OnPlatform 'icon_about.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}">
+        <Tab Title="Разходи" x:Name="ExpensesSection" Icon="{OnPlatform 'coins.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}">
             <ShellContent
-                Title="SomeTitle"
+                Title="This month expenses"
                 Route="ExpensePage"
                 ContentTemplate="{DataTemplate views:ExpensePage}"/>
         </Tab>
-        <Tab Title="Add expense" x:Name="AddExpenseSection" Icon="{OnPlatform 'icon_about.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}">
+        <Tab Title="Добави разход" x:Name="AddExpenseSection" Icon="{OnPlatform 'send_money.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}">
             <ShellContent
-                Route="AddExpense"
+                Route="Add Expense"
                 Title="Add expense"
-                ContentTemplate="{DataTemplate views:AddExpense}"
-                Icon="{OnPlatform 'icon_about.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}"/>
+                ContentTemplate="{DataTemplate views:AddExpense}"/>
         </Tab>
 
     </TabBar>

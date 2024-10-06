@@ -1,4 +1,4 @@
-using BudgetHelper.Core;
+﻿using BudgetHelper.Core;
 using BudgetHelper.Core.Entities;
 using BudgetHelper.Models;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +24,7 @@ public partial class AddExpense : ContentPage
     private async Task PopulateControl()
     {
         
-        var existeng = await ctx.ExpenseTypes.Select(et => new ExpenseViewModel()
+        var existing = await ctx.ExpenseTypes.Select(et => new ExpenseViewModel()
         {
             Name = et.Name,
             TypeId = et.Id,
@@ -32,12 +32,12 @@ public partial class AddExpense : ContentPage
 
         }).ToListAsync();
 
-        existeng.Add(new ExpenseViewModel()
+        existing.Add(new ExpenseViewModel()
         {
-            Name = " {Add a new type of expense} "
+            Name = " {Добавете нов тип разход} "
         });
         
-        ExpenseList.ItemsSource = existeng;
+        ExpenseList.ItemsSource = existing;
         ExpenseList.ItemDisplayBinding = new Binding("Name");
         ExpenseList.SelectedIndex = 0;
       
@@ -50,7 +50,7 @@ public partial class AddExpense : ContentPage
         var option = (ExpenseViewModel)picker.SelectedItem;
         if (option.TypeId == 0)
         {
-            await Shell.Current.GoToAsync($"///{nameof(ExpensePage)}");
+            await Shell.Current.GoToAsync($"/{nameof(AddNewTypePage)}");
         }
     }
 
@@ -80,7 +80,15 @@ public partial class AddExpense : ContentPage
 
                throw ex.InnerException;
             }
+
+            //TODO: Add optional date
            
         }
+        else
+        {
+            await DisplayAlert("Invalid input",$"'{value}' не е валидно число!","Разбрах");
+        }
+
+
     }
 }

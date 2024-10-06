@@ -1,9 +1,5 @@
-﻿using Android.Util;
-using BudgetHelper.Core;
-using Java.Sql;
-using Java.Time.Format;
+﻿using BudgetHelper.Core;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
 
 namespace BudgetHelper.Models
 {

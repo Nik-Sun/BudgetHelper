@@ -11,6 +11,7 @@ namespace BudgetHelper
             Routing.RegisterRoute(nameof(Views.AddExpense), typeof(Views.AddExpense));
             Routing.RegisterRoute(nameof(Views.ExpensePage), typeof(Views.ExpensePage));
             Routing.RegisterRoute(nameof(Views.CategoryDetailsPage), typeof(Views.CategoryDetailsPage));
+            Routing.RegisterRoute(nameof(Views.AddNewTypePage), typeof(Views.AddNewTypePage));
 
         }
         

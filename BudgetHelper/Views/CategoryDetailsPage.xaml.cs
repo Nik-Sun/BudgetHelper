@@ -44,7 +44,7 @@ public partial class CategoryDetailsPage : ContentPage , IQueryAttributable
                 Stroke = Colors.DarkGray,
                 StrokeShape = new RoundRectangle
                 {
-                    CornerRadius = new CornerRadius(10)
+                    CornerRadius = new CornerRadius(11)
                 },
                 Padding = new Thickness(5),
                 Margin = new Thickness(5),
@@ -66,7 +66,7 @@ public partial class CategoryDetailsPage : ContentPage , IQueryAttributable
         DateTime actualDate = DateTime.Parse(date);
         var expenses = await ctx.Expenses
             .Where(e => e.Created.Value.Month == actualDate.Month && e.Type.Category.Name == categoryName) 
-            .Select(e => $"{e.Created.Value.ToString("d",CultureInfo.CurrentCulture)} : {e.Type.Name} - {e.Value :f2}лв")
+            .Select(e => $"{e.Created.Value.ToString("d/MM/yy",new CultureInfo("BG-bg"))} : {e.Type.Name} - {e.Value :f2}лв")
             .ToListAsync();
 
         return expenses;
