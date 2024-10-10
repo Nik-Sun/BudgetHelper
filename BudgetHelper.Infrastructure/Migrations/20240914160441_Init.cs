@@ -54,7 +54,7 @@ namespace BudgetHelper.Infrastructure.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     TypeId = table.Column<int>(type: "INTEGER", nullable: false),
                     Value = table.Column<decimal>(type: "TEXT", nullable: false),
-                    Created = table.Column<DateTime>(type: "TEXT", nullable: true)
+                    Created = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

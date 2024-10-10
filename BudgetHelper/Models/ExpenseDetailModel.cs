@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace BudgetHelper.Models
 {
-    public class ExpenseViewModel
+    public class ExpenseDetailModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int TypeId { get; set; }
-        public decimal Value { get; set; }
-
+        public DateTime Created { get; set; }
+        public string Value { get; set; }
     }
 }

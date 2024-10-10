@@ -1,4 +1,5 @@
-﻿using BudgetHelper.Models;
+﻿using BudgetHelper.Infrastructure;
+using BudgetHelper.Models;
 using Microsoft.Maui.Controls.Shapes;
 
 namespace BudgetHelper.Views;
@@ -18,26 +19,15 @@ public partial class ExpensePage : ContentPage
         base.OnAppearing();
         if (isReload == false)
         {
-            _model.PopulateData();
-
-            var data = _model.DisplayData;
+            LoadDataForMonth();
             var dates = _model.Dates;
-
-            MyData.DataSource = data;
             CustomDatePicker.ItemsSource = dates;
             UpdateSelectedIndexWithoutEvent();
-            CustomDatePicker.Title = dates[^1];
-            MyView.Children.Clear();
-            foreach (var entry in data)
-            {
-                var frame = CreateLabel(entry.SliceName, entry.SliceValue);
-
-
-                MyView.Children.Add(frame);
-            }
         }
         else
         {
+            var month = (string)CustomDatePicker.SelectedItem;
+            LoadDataForMonth(month);
             isReload = false;
         }
 
@@ -48,17 +38,30 @@ public partial class ExpensePage : ContentPage
     {
 
         var month = (string)CustomDatePicker.SelectedItem;
+        LoadDataForMonth(month);
+
+    }
+
+    private void LoadDataForMonth(string? month = null)
+    {
         _model.PopulateData(month);
         var data = _model.DisplayData;
+        if (data.Count == 0 && month != null)
+        {
+            _model.PopulateData();
+            data = _model.DisplayData;
+            var dates = _model.Dates;
+            CustomDatePicker.ItemsSource = dates;
+            UpdateSelectedIndexWithoutEvent();
+        }
         MyData.DataSource = data;
-        CustomDatePicker.Title = month;
+        
         MyView.Children.Clear();
         foreach (var entry in data)
         {
             var frame = CreateLabel(entry.SliceName, entry.SliceValue);
             MyView.Children.Add(frame);
         }
-
     }
 
     private Border CreateLabel(string name, string value)
@@ -68,7 +71,6 @@ public partial class ExpensePage : ContentPage
         var button = new Button()
         {
             Text = $"{name} => {value}лв",
-            FontSize = 15,
             Background = new LinearGradientBrush
             {
                 StartPoint = new Point(0, 0),
@@ -80,11 +82,10 @@ public partial class ExpensePage : ContentPage
                 }
             },
             TextColor = Colors.Black,
-            HorizontalOptions = LayoutOptions.Center,
-           // VerticalOptions = LayoutOptions.Center,
+            LineBreakMode = LineBreakMode.HeadTruncation
 
         };
-
+        button.FontSize = Helpers.CalculateFontSize(button.Text.Length);
         button.Clicked += (sender, args) => OnCategoryClicked(sender!, args);
 
         var frame = new Border
@@ -119,7 +120,7 @@ public partial class ExpensePage : ContentPage
         isReload = true;
         var button = sender as Button;
         var categoryName = button.Text.Split(" => ")[0];
-        var date = CustomDatePicker.Title;
+        var date = (string)CustomDatePicker.SelectedItem;
         var parameters = new Dictionary<string, object>()
         {
            { "Category",categoryName },
@@ -141,5 +142,7 @@ public partial class ExpensePage : ContentPage
         CustomDatePicker.SelectedIndexChanged += CustomDatePicker_SelectedIndexChanged;
     }
 
+    
 
+   
 }

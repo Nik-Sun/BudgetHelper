@@ -1,46 +1,115 @@
 ﻿using BudgetHelper.Core;
+using BudgetHelper.Core.Entities;
+using BudgetHelper.Infrastructure;
+using BudgetHelper.Models;
+using CommunityToolkit.Maui.Behaviors;
+using DevExpress.Maui.Core.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Maui.Controls.Shapes;
 using System.Globalization;
 
 namespace BudgetHelper.Views;
 
-public partial class CategoryDetailsPage : ContentPage , IQueryAttributable
+public partial class CategoryDetailsPage : ContentPage, IQueryAttributable
 {
     private readonly ApplicationDbContext ctx;
     private string date;
     private string categoryName;
+    private int? typeId;
+
+    private List<ExpenseDetailModel> expenses;
 
     public CategoryDetailsPage(ApplicationDbContext ctx)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         this.ctx = ctx;
     }
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        date = (string)query["Date"];
-        categoryName = (string)query["Category"];
+        if (query.ContainsKey("Date"))
+        {
+            date = (string)query["Date"];
+        }
+        if (query.ContainsKey("Category"))
+        {
+            categoryName = (string)query["Category"];
+        }
+        if (query.ContainsKey("Id"))
+        {
+            typeId = (int)query["Id"];
+        }
+
     }
 
     protected override async void OnAppearing()
     {
-        var expenses = await GetExpensesForCategory();
+        base.OnAppearing();
+        expenses = await GetExpensesAsync();
+
+        CreateLabels(expenses);
+    }
+
+    private async Task<List<ExpenseDetailModel>> GetExpensesAsync()
+    {
+        var result = new List<ExpenseDetailModel>();
+
+        if (typeId != null)
+        {
+            result = await ctx.Expenses
+            .Where(e => e.TypeId == typeId)
+            .OrderByDescending(e => e.Created)
+            .Select(e => new ExpenseDetailModel
+            {
+                Id = e.Id,
+                Created = e.Created,
+                Name = e.Type.Name,
+                Value = e.Value.ToString()
+            }).ToListAsync();
+        }
+        else if (date != null && categoryName != null)
+        {
+            DateTime actualDate = DateTime.Parse(date);
+            result = await ctx.Expenses
+                .Where(e => e.Created.Month == actualDate.Month && e.Type.Category.Name == categoryName)
+                .Include(e => e.Type)
+                .Select(e => new ExpenseDetailModel
+                {
+                    Id = e.Id,
+                    Name = e.Type.Name,
+                    Created = e.Created,
+                    Value = $"{e.Value:f2}"
+                })
+                .ToListAsync();
+        }
+
+
+        return result;
+    }
+
+
+    private void CreateLabels(List<ExpenseDetailModel> expenses)
+    {
+        ParentStack.Children.Clear();
         foreach (var expense in expenses)
         {
+
             var label = new Label
             {
-                Text = expense,
-                FontSize = 14,
+                Text = $"{expense.Created.ToString("d/MM/yy", new CultureInfo("BG-bg"))} : {expense.Name} - {expense.Value}лв",
                 FontAttributes = FontAttributes.Bold,
                 TextColor = Colors.Black,
                 HorizontalOptions = LayoutOptions.Fill,
                 VerticalOptions = LayoutOptions.Center,
-                Padding = new Thickness(10)
+                Padding = new Thickness(10),
+                LineBreakMode = LineBreakMode.MiddleTruncation
+
             };
+            label.FontSize = Helpers.CalculateFontSize(label.Text.Length);
             var frame = new Border
             {
                 Content = label,
+                BackgroundColor = Colors.AliceBlue,
                 Stroke = Colors.DarkGray,
                 StrokeShape = new RoundRectangle
                 {
@@ -48,27 +117,48 @@ public partial class CategoryDetailsPage : ContentPage , IQueryAttributable
                 },
                 Padding = new Thickness(5),
                 Margin = new Thickness(5),
-              
+
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center
 
             };
+
+            var behaviour = new TouchBehavior
+            {
+                LongPressCommand = new Command(async (object exp) =>
+                {
+                    var expense = exp as ExpenseDetailModel;
+                    bool answer = await DisplayAlert("Изтриване на разход", $"Ще изтриете разход {expense.Name}", "Изтрии", "Cancel");
+                    if (answer)
+                    {
+                        await DeleteExpense(expense.Id);
+                    }
+                }),
+                PressedBackgroundColor = Colors.Transparent,
+                PressedScale = 0.95,
+                LongPressCommandParameter = expense
+
+            };
+            frame.Behaviors.Add(behaviour);
             ParentStack.Children.Add(frame);
         }
 
-       
-       
-        base.OnAppearing();
+
     }
 
-    private async Task<List<string>> GetExpensesForCategory()
-    {
-        DateTime actualDate = DateTime.Parse(date);
-        var expenses = await ctx.Expenses
-            .Where(e => e.Created.Value.Month == actualDate.Month && e.Type.Category.Name == categoryName) 
-            .Select(e => $"{e.Created.Value.ToString("d/MM/yy",new CultureInfo("BG-bg"))} : {e.Type.Name} - {e.Value :f2}лв")
-            .ToListAsync();
 
-        return expenses;
+    private async Task DeleteExpense(int id)
+    {
+        var expenseToDelete = ctx.Expenses.Find(id);
+        if (expenseToDelete != null)
+        {
+            ctx.Expenses.Remove(expenseToDelete);
+            await ctx.SaveChangesAsync();
+        }
+
+
+        var index = expenses.FindIndex(e => e.Id == id);
+        expenses.RemoveAt(index);
+        CreateLabels(expenses);
     }
 }

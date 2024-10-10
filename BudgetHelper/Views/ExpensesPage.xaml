@@ -81,8 +81,8 @@
                     </dx:PieChartView.Series>
                 </dx:PieChartView>
             </Grid>
-            <StackLayout x:Name="MyView">
-
+            <StackLayout 
+                x:Name="MyView">
             </StackLayout>
         </StackLayout>
 

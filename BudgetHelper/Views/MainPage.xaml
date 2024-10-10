@@ -26,23 +26,21 @@
                 HeightRequest="185"
                 Aspect="AspectFill"
                 SemanticProperties.Description="A sleek, modern splash screen image for a home budget mobile app" >
-                    
+
                 </Image>
             </Border>
-
             <Label
-                Text="Welcome to Budget Helper!!!"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" >
+                    Grid.Row="0"
+                    Text="Welcome to Budget Helper!!!"
+                    Style="{StaticResource Headline}"
+                    SemanticProperties.HeadingLevel="Level1" >
                 <Label.Shadow>
                     <Shadow Brush="Black"
-Offset="20,20"
-Radius="40"
-Opacity="0.8" />
+                        Offset="20,20"
+                        Radius="40"
+                        Opacity="0.8" />
                 </Label.Shadow>
             </Label>
-
-            
         </VerticalStackLayout>
     </ScrollView>
 

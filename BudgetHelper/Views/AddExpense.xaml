@@ -4,40 +4,55 @@
              x:Class="BudgetHelper.Views.AddExpense"
              Title="Add Expense"
              Background="{StaticResource GradientBrush}">
-   
-    <Grid>
+
+    <Grid
+        RowSpacing="0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="150"/>
             <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
-
+        
+        
         <Border
-            Margin="15"
+            Margin="15,15,15,15"
             Grid.Row="0"
-            HeightRequest="80"
-            VerticalOptions="Start"
+            
             Stroke="DarkGray"
-            StrokeThickness="5"
-               >
+            StrokeThickness="5">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20,20,20,20" />
             </Border.StrokeShape>
             <Picker 
-                  Margin="10, 0, 0, 0"
                   VerticalTextAlignment="Center"
                   HorizontalTextAlignment="Center"
-                  Style="{StaticResource Picker}"
                   FontSize="Large"
                   x:Name="ExpenseList"
-                  Title="Select a category for the expense:"
+                  Title="Изберете тип разход:"
                   SelectedIndexChanged="OnPickerSelectedIndexChanged"/>
         </Border>
+        
+        <Border
+            VerticalOptions="Start"
+            Grid.Row="2"
+            
+            Margin="15"
+            Stroke="DarkGray"
+            StrokeShape="RoundRectangle 20"
+            StrokeThickness="5">
 
+            <DatePicker
+                HorizontalOptions="Center"
+                x:Name="ExpenseDate">
+            </DatePicker>
+        </Border>
         <Border
                 Margin="15"
-                Grid.Row="1"
+                Grid.Row="3"
+               
                 Stroke="DarkGray"
                 StrokeThickness="5">
             <Border.StrokeShape>
@@ -48,19 +63,27 @@
                  HorizontalTextAlignment="Center"
                  FontSize="40"
                  Keyboard="Default"
-                 x:Name="ExpenseValue"/>
+                 x:Name="ExpenseValue"
+                 Placeholder="123.45"/>
         </Border>
+
+
+
+
         <Border
             VerticalOptions="End"
-            Grid.Row="2"
+            Grid.Row="4"
+           
             Margin="15"
-            StrokeShape="RoundRectangle 8">
-            
+            StrokeShape="RoundRectangle 20">
+
             <Button 
                 HeightRequest="100"
                 Text="Save"
                 Clicked="SaveButtonClicked"/>
         </Border>
+
+
 
     </Grid>
 

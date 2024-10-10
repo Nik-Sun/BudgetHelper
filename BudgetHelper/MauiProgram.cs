@@ -1,6 +1,7 @@
 ﻿using BudgetHelper.Core;
 using BudgetHelper.Models;
 using BudgetHelper.Views;
+using CommunityToolkit.Maui;
 using DevExpress.Maui;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,7 @@ namespace BudgetHelper
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .UseDevExpress()
                 .UseDevExpressCharts()
                 .ConfigureFonts(fonts =>
@@ -51,6 +53,12 @@ namespace BudgetHelper
 #endif
             });
             Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping("PickerCustomization", (handler, view) =>
+            {
+#if ANDROID
+                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
+#endif
+            });
+            Microsoft.Maui.Handlers.DatePickerHandler.Mapper.AppendToMapping("PickerCustomization", (handler, view) =>
             {
 #if ANDROID
                 handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());

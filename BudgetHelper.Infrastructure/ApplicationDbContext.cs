@@ -21,7 +21,7 @@ namespace BudgetHelper.Core
         {
             if (optionsBuilder.IsConfigured == false)
             {
-                optionsBuilder.UseSqlite($"Data Source={Constants.DatabasePath};");
+                optionsBuilder.UseSqlite($"Data Source={DatabaseConstants.DatabasePath};");
             }
            
         }

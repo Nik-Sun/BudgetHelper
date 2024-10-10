@@ -20,7 +20,7 @@ namespace BudgetHelper.Models
         }
 
 
-        public async void PopulateData(string date = null)
+        public async void PopulateData(string? date = null)
         {
             if(date != null)
             {
@@ -48,7 +48,7 @@ namespace BudgetHelper.Models
         {
             var dates = await ctx.Expenses
             .OrderBy(e => e.Created)
-            .Select(e => e.Created.Value.ToString("Y"))
+            .Select(e => e.Created.ToString("Y"))
             .ToListAsync();
 
             if (dates.Count == 0)
@@ -67,7 +67,7 @@ namespace BudgetHelper.Models
             var actualDate = DateTime.Parse(date);
 
             var result = testQuery
-                .Where(e => e.Created.Value.Month == actualDate.Month && e.Created.Value.Year == actualDate.Year)
+                .Where(e => e.Created.Month == actualDate.Month && e.Created.Year == actualDate.Year)
                 .GroupBy(x => x.Type.Category.Name)
              .Select(x => new ChartSlice
              {

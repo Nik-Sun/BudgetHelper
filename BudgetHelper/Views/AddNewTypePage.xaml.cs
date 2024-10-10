@@ -1,4 +1,4 @@
-using BudgetHelper.Core;
+﻿using BudgetHelper.Core;
 using BudgetHelper.Core.Entities;
 using BudgetHelper.Models;
 using Microsoft.EntityFrameworkCore;
@@ -32,23 +32,40 @@ public partial class AddNewTypePage : ContentPage
 
     private async void SaveButtonClicked(object sender, EventArgs e)
     {
-		var typeName = AddTypeField.Text;
+        var typeName = AddTypeField.Text;
 
-		//TODO:Add validity check
-		var category = (CategoryPickerModel)CategoryList.SelectedItem;
+        var category = (CategoryPickerModel)CategoryList.SelectedItem;
 
-        if (typeName.Length >= 3)
+        if (string.IsNullOrEmpty(typeName))
         {
-            var type = new ExpenseType()
-            {
-                Name = typeName,
-                CategoryId = category.Id,
-            };
-            ctx.ExpenseTypes.Add(type);
-            ctx.SaveChanges();
+            await DisplayAlert("Error", "Името на типа не може да е празно.", "Cancel");
+        }
+        else if(typeName.Length < 3 || typeName.Length > 30)
+        {
+            await DisplayAlert("Error","Името на типа трябва да е между 3 и 30 символа.","Cancel");
+        }
+        else if(category == null)
+        {
+            await DisplayAlert("Error", "Моля изберете категория", "Cancel");
+        }
+        else
+        {
+            await SaveNewType(category.Id, typeName);
+            await Shell.Current.GoToAsync($"{nameof(AddExpense)}");
+
         }
 
-		await Shell.Current.GoToAsync($"{nameof(AddExpense)}");
+    }
 
+    private async Task SaveNewType(int categoryId,string typeName)
+    {
+        
+        var type = new ExpenseType()
+        {
+            Name = typeName,
+            CategoryId = categoryId,
+        };
+        ctx.ExpenseTypes.Add(type);
+        await ctx.SaveChangesAsync();
     }
 }
