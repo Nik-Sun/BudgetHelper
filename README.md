@@ -53,7 +53,7 @@ Home Budget App is a simple mobile application built with .NET MAUI, designed to
 
 You can download the latest version of the Home Budget App for testing purposes:
 
-- [Download Home Budget App (APK)](https://www.dropbox.com/s/https://www.dropbox.com/scl/fi/1ulcc5oiypqb5pyp40qh1/com.companyname.budgethelper-arm64-v8a-Signed.apk?rlkey=w4imv1b1z7ml8t92g4ql4dmor&dl=0)
+- [Download Home Budget App (APK)](https://www.dropbox.com/scl/fi/1ulcc5oiypqb5pyp40qh1/com.companyname.budgethelper-arm64-v8a-Signed.apk?rlkey=w4imv1b1z7ml8t92g4ql4dmor&dl=0)
 
 ### Important Notes:
 - This app uses a **self-signed certificate**, which means you may receive security warnings during installation. Please only install if you're comfortable with that.
