@@ -1,9 +1,10 @@
 ﻿using BudgetHelper.Core;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace BudgetHelper.Models
 {
-    public class ChartViewModel
+    public class ExpensePageModel
     {
         private readonly Color[] palette;
         public Color[] Palette => palette;
@@ -12,11 +13,18 @@ namespace BudgetHelper.Models
         private List<string> dates;
 
 
-        public ChartViewModel(ApplicationDbContext ctx)
+        public ExpensePageModel(ApplicationDbContext ctx)
         {
             this.ctx = ctx;
-            palette = PaletteLoader.LoadPalette("#975ba5", "#03bfc1", "#f8c855", "#f45a4e",
-                                          "#496cbe", "#f58f35", "#d293fd", "#25a966");
+
+            palette = PaletteLoader.LoadPalette("#975ba5",
+                "#03bfc1",
+                "#f8c855",
+                "#f45a4e",
+                "#496cbe",
+                "#f58f35", 
+                "#d293fd", 
+                "#25a966");
         }
 
 
@@ -48,7 +56,7 @@ namespace BudgetHelper.Models
         {
             var dates = await ctx.Expenses
             .OrderBy(e => e.Created)
-            .Select(e => e.Created.ToString("Y"))
+            .Select(e => e.Created.ToString("Y",new CultureInfo("BG-bg")))
             .ToListAsync();
 
             if (dates.Count == 0)
@@ -60,13 +68,13 @@ namespace BudgetHelper.Models
 
         private async Task<List<ChartSlice>> GetDataForChart(string date)
         {
-            var testQuery = await ctx.Expenses
+            var query = await ctx.Expenses
                 .Include(e => e.Type)
                 .ThenInclude(e => e.Category)
                 .ToListAsync();
-            var actualDate = DateTime.Parse(date);
+            var actualDate = DateTime.Parse(date, new CultureInfo("BG-bg"));
 
-            var result = testQuery
+            var result = query
                 .Where(e => e.Created.Month == actualDate.Month && e.Created.Year == actualDate.Year)
                 .GroupBy(x => x.Type.Category.Name)
              .Select(x => new ChartSlice
@@ -92,16 +100,12 @@ namespace BudgetHelper.Models
 
         }
 
-        public ChartSlice(string sliceName, string sliceValue)
-        {
-            SliceName = sliceName;
-            SliceValue = sliceValue;
-        }
-
         public string SliceValue { get; set; }
         public string SliceName { get; set; }
 
     }
+
+
     static class PaletteLoader
     {
         public static Color[] LoadPalette(params string[] values)

@@ -1,5 +1,7 @@
 ﻿using BudgetHelper.Infrastructure;
 using BudgetHelper.Models;
+using DevExpress.Maui.Charts;
+using DevExpress.Maui.Core.Internal;
 using Microsoft.Maui.Controls.Shapes;
 
 namespace BudgetHelper.Views;
@@ -7,8 +9,8 @@ namespace BudgetHelper.Views;
 public partial class ExpensePage : ContentPage
 {
     private bool isReload = false;
-    private readonly ChartViewModel _model;
-    public ExpensePage(ChartViewModel model)
+    private readonly ExpensePageModel _model;
+    public ExpensePage(ExpensePageModel model)
     {
         InitializeComponent();
         _model = model;
@@ -30,8 +32,11 @@ public partial class ExpensePage : ContentPage
             LoadDataForMonth(month);
             isReload = false;
         }
+        var totalValue = _model.DisplayData
+           .Select(c => double.Parse(c.SliceValue))
+           .Sum();
 
-      
+        TotalValueLabel.TextPattern = $"Общо\n{totalValue :f2}лв";
     }
 
     private void CustomDatePicker_SelectedIndexChanged(object? sender, EventArgs e)
@@ -55,7 +60,7 @@ public partial class ExpensePage : ContentPage
             UpdateSelectedIndexWithoutEvent();
         }
         MyData.DataSource = data;
-        
+
         MyView.Children.Clear();
         foreach (var entry in data)
         {
@@ -66,7 +71,7 @@ public partial class ExpensePage : ContentPage
 
     private Border CreateLabel(string name, string value)
     {
-        
+
 
         var button = new Button()
         {
@@ -142,7 +147,7 @@ public partial class ExpensePage : ContentPage
         CustomDatePicker.SelectedIndexChanged += CustomDatePicker_SelectedIndexChanged;
     }
 
-    
 
-   
+
+
 }

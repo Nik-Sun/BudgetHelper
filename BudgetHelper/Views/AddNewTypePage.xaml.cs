@@ -38,15 +38,24 @@ public partial class AddNewTypePage : ContentPage
 
         if (string.IsNullOrEmpty(typeName))
         {
-            await DisplayAlert("Error", "Името на типа не може да е празно.", "Cancel");
+            await DisplayAlert(
+                MessagesConstants.WarningPopUpTitle,
+                MessagesConstants.InvalidTypeNameMessage,
+                MessagesConstants.PopUpClose);
         }
         else if(typeName.Length < 3 || typeName.Length > 30)
         {
-            await DisplayAlert("Error","Името на типа трябва да е между 3 и 30 символа.","Cancel");
+            await DisplayAlert(
+                MessagesConstants.WarningPopUpTitle,
+                MessagesConstants.InvalidTypeNameLengthMessage,
+                MessagesConstants.PopUpClose);
         }
         else if(category == null)
         {
-            await DisplayAlert("Error", "Моля изберете категория", "Cancel");
+            await DisplayAlert(
+                MessagesConstants.WarningPopUpTitle, 
+                MessagesConstants.InvalidCategoryMessage, 
+                MessagesConstants.PopUpClose);
         }
         else
         {

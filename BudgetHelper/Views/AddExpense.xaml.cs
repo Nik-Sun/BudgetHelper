@@ -53,35 +53,36 @@ public partial class AddExpense : ContentPage
                     var selected = (ExpenseViewModel)picker.SelectedItem;
 
                     string action = await DisplayActionSheet(MessagesConstants.TypePickerActionSheetTitle
-                        ,MessagesConstants.PopUpClose
-                        ,null,
+                        , MessagesConstants.PopUpClose
+                        , null,
                         MessagesConstants.ActionTypeDelete,
                         MessagesConstants.ActionTypeCheck);
 
                     if (action == MessagesConstants.ActionTypeDelete)
                     {
-                        bool answer = await DisplayAlert(MessagesConstants.DeleteAlertTitle,
-                            string.Format(MessagesConstants.DeleteConfirmMessage,selected.Name),
-                            MessagesConstants.ActionTypeDelete, 
+                        bool answer = await DisplayAlert(MessagesConstants.WarningPopUpTitle,
+                            string.Format(MessagesConstants.DeleteTypeConfirmMessage, selected.Name),
+                            MessagesConstants.ActionTypeDelete,
                             MessagesConstants.PopUpClose);
                         if (answer)
                         {
                             await DeleteExpenseType(selected.Id);
 
                             await DisplayAlert(MessagesConstants.DeletedTitle,
-                               string.Format(MessagesConstants.DeletedMessage,selected.Name),
+                               string.Format(MessagesConstants.DeletedMessage, selected.Name),
                                 MessagesConstants.PopUpClose);
                         }
                     }
-                    else if(action == MessagesConstants.ActionTypeCheck)
+                    else if (action == MessagesConstants.ActionTypeCheck)
                     {
                         var parameter = new Dictionary<string, object>
                         {
                            { "Id",selected.Id },
+                           { "TypeName",selected.Name }
                         };
-                        await Shell.Current.GoToAsync($"{nameof(CategoryDetailsPage)}",parameter);
+                        await Shell.Current.GoToAsync($"{nameof(CategoryDetailsPage)}", parameter);
                     }
-                   
+
 
                 }),
                 PressedBackgroundColor = Colors.Transparent,
@@ -90,11 +91,13 @@ public partial class AddExpense : ContentPage
 
             };
             ExpenseList.Behaviors.Add(behaviour);
-       }
-        
+        }
+
         ExpenseList.ItemDisplayBinding = new Binding("Name");
         ExpenseList.SelectedIndex = 0;
 
+        ExpenseDate.MaximumDate = DateTime.Now;
+        ExpenseDate.Date = DateTime.Now;
 
     }
 
@@ -154,12 +157,17 @@ public partial class AddExpense : ContentPage
                 throw ex.InnerException;
             }
 
-
-
         }
         else
         {
-            await DisplayAlert("Invalid input", $"'{value}' не е валидно число!", "Разбрах");
+            await DisplayAlert(
+                MessagesConstants.WarningPopUpTitle,
+                MessagesConstants.InvalidExpenseValueMessage,
+                MessagesConstants.PopUpClose);
         }
     }
+}
+public class PickerItem
+{
+    public string DisplayText { get; set; }
 }

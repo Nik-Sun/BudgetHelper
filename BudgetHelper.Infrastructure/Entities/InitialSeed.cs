@@ -8,11 +8,10 @@ namespace BudgetHelper.Core.Entities
 {
     internal static class InitialSeed
     {
-        //Initial categories,can be expanded later in app.
         private static Category SportCategory = new Category { Id = 1, Name = "Домашни любимци" };
         private static Category ComunalCategory = new Category { Id = 2, Name = "Битови сметки" };
         private static Category FunCategory = new Category { Id = 3, Name = "Спорт" };
-        private static Category ShoppingCategory = new Category { Id = 4, Name = "Домашни потерби" };
+        private static Category ShoppingCategory = new Category { Id = 4, Name = "Домашни потреби" };
         private static Category GroceriesCategory = new Category { Id = 5, Name = "Хранителни стоки" };
         private static Category RestourantsCategory = new Category { Id = 6, Name = "Ресторанти и развлечения" };
         private static Category HealthCategory = new Category { Id = 7, Name = "Здраве" };

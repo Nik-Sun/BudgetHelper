@@ -13,8 +13,11 @@ namespace BudgetHelper.Views;
 public partial class CategoryDetailsPage : ContentPage, IQueryAttributable
 {
     private readonly ApplicationDbContext ctx;
+
     private string date;
     private string categoryName;
+
+    private string typeName;
     private int? typeId;
 
     private List<ExpenseDetailModel> expenses;
@@ -39,6 +42,10 @@ public partial class CategoryDetailsPage : ContentPage, IQueryAttributable
         {
             typeId = (int)query["Id"];
         }
+        if (query.ContainsKey("TypeName"))
+        {
+            typeName = (string)query["TypeName"];
+        }
 
     }
 
@@ -46,7 +53,7 @@ public partial class CategoryDetailsPage : ContentPage, IQueryAttributable
     {
         base.OnAppearing();
         expenses = await GetExpensesAsync();
-
+        ParentStack.Children.Clear();
         CreateLabels(expenses);
     }
 
@@ -54,7 +61,7 @@ public partial class CategoryDetailsPage : ContentPage, IQueryAttributable
     {
         var result = new List<ExpenseDetailModel>();
 
-        if (typeId != null)
+        if (typeId != null && typeName != null)
         {
             result = await ctx.Expenses
             .Where(e => e.TypeId == typeId)
@@ -64,14 +71,17 @@ public partial class CategoryDetailsPage : ContentPage, IQueryAttributable
                 Id = e.Id,
                 Created = e.Created,
                 Name = e.Type.Name,
-                Value = e.Value.ToString()
+                Value = $"{e.Value:f2}"
             }).ToListAsync();
+
+            this.Title = $"Разходи от тип {typeName}";
         }
         else if (date != null && categoryName != null)
         {
-            DateTime actualDate = DateTime.Parse(date);
+            DateTime actualDate = DateTime.Parse(date,new CultureInfo("BG-bg"));
             result = await ctx.Expenses
                 .Where(e => e.Created.Month == actualDate.Month && e.Type.Category.Name == categoryName)
+                .OrderByDescending(e => e.Created)
                 .Include(e => e.Type)
                 .Select(e => new ExpenseDetailModel
                 {
@@ -81,8 +91,9 @@ public partial class CategoryDetailsPage : ContentPage, IQueryAttributable
                     Value = $"{e.Value:f2}"
                 })
                 .ToListAsync();
-        }
 
+            this.Title = $"Разходи от {categoryName}";
+        }
 
         return result;
     }
@@ -90,7 +101,7 @@ public partial class CategoryDetailsPage : ContentPage, IQueryAttributable
 
     private void CreateLabels(List<ExpenseDetailModel> expenses)
     {
-        ParentStack.Children.Clear();
+        
         foreach (var expense in expenses)
         {
 
@@ -128,7 +139,11 @@ public partial class CategoryDetailsPage : ContentPage, IQueryAttributable
                 LongPressCommand = new Command(async (object exp) =>
                 {
                     var expense = exp as ExpenseDetailModel;
-                    bool answer = await DisplayAlert("Изтриване на разход", $"Ще изтриете разход {expense.Name}", "Изтрии", "Cancel");
+                    bool answer = await DisplayAlert(
+                        MessagesConstants.WarningPopUpTitle,
+                        string.Format(MessagesConstants.DeleteExpenseConfirmMessage,expense.Name), 
+                        MessagesConstants.PopUpConfirm, 
+                        MessagesConstants.PopUpClose);
                     if (answer)
                     {
                         await DeleteExpense(expense.Id);

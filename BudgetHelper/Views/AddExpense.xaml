@@ -2,17 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BudgetHelper.Views.AddExpense"
-             Title="Add Expense"
              Background="{StaticResource GradientBrush}">
 
     <Grid
         RowSpacing="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="90"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="150"/>
-            <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
         
@@ -33,11 +31,12 @@
                   x:Name="ExpenseList"
                   Title="Изберете тип разход:"
                   SelectedIndexChanged="OnPickerSelectedIndexChanged"/>
+           
         </Border>
         
         <Border
-            VerticalOptions="Start"
-            Grid.Row="2"
+            VerticalOptions="Center"
+            Grid.Row="1"
             
             Margin="15"
             Stroke="DarkGray"
@@ -51,10 +50,10 @@
         </Border>
         <Border
                 Margin="15"
-                Grid.Row="3"
-               
+                Grid.Row="2"
                 Stroke="DarkGray"
-                StrokeThickness="5">
+                StrokeThickness="5"
+                HeightRequest="120">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20,20,20,20" />
             </Border.StrokeShape>
@@ -66,13 +65,9 @@
                  x:Name="ExpenseValue"
                  Placeholder="123.45"/>
         </Border>
-
-
-
-
         <Border
             VerticalOptions="End"
-            Grid.Row="4"
+            Grid.Row="3"
            
             Margin="15"
             StrokeShape="RoundRectangle 20">

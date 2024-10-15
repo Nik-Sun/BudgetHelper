@@ -13,20 +13,20 @@
         <Tab Title="Главно меню" x:Name="MainPageSection" Icon="{OnPlatform 'home.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}">
             <ShellContent
                 x:Name="NotesTab"
-                Title="Home"
+                Title="Главно меню"
                 Route="MainPage"
                 ContentTemplate="{DataTemplate views:MainPage}"/>
         </Tab>
         <Tab Title="Разходи" x:Name="ExpensesSection" Icon="{OnPlatform 'coins.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}">
             <ShellContent
-                Title="This month expenses"
+                Title="Разходи"
                 Route="ExpensePage"
                 ContentTemplate="{DataTemplate views:ExpensePage}"/>
         </Tab>
         <Tab Title="Добави разход" x:Name="AddExpenseSection" Icon="{OnPlatform 'send_money.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}">
             <ShellContent
-                Route="Add Expense"
-                Title="Add expense"
+                Title="Добави разход"
+                Route="AddExpense"
                 ContentTemplate="{DataTemplate views:AddExpense}"/>
         </Tab>
 

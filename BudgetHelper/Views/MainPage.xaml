@@ -41,6 +41,31 @@
                         Opacity="0.8" />
                 </Label.Shadow>
             </Label>
+
+            <Border
+                MinimumHeightRequest="80"
+                BackgroundColor="{StaticResource Light Blue}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="20,20"
+                            Radius="40"
+                            Opacity="0.8" />
+                </Border.Shadow>
+                <Label x:Name="QuoteLabel"
+                        FontSize="18"
+                        Padding="12"
+                       FontAttributes="Italic"
+                        HorizontalOptions="Center"
+                        VerticalOptions="CenterAndExpand" />
+            </Border>
+            <CollectionView
+                 x:Name="CustomPicker" 
+                 SelectionMode="Single">
+                
+            </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
 

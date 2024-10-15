@@ -37,10 +37,11 @@ namespace BudgetHelper
                 })
                 .AddTransient<MainPage>()
                 .AddTransient<AddExpense>()
-                .AddTransient<ChartViewModel>()
+                .AddTransient<ExpensePageModel>()
                 .AddTransient<CategoryDetailsPage>()
                 .AddTransient<ExpensePage>()
-                .AddTransient<AddNewTypePage>();
+                .AddTransient<AddNewTypePage>()
+                .AddSingleton<QuoteProvider>();
             
 
             Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("Placeholder", (h, v) =>
