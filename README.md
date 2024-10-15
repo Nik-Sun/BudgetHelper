@@ -28,5 +28,39 @@ Home Budget App is a simple mobile application built with .NET MAUI, designed to
 
 
 ## Screenshots
-<img src="https://github.com/user-attachments/assets/9804c3d2-3366-4257-b54e-bf98dc1c89c2" width=50%/>
-![Screenshot_1728926127](https://github.com/user-attachments/assets/9804c3d2-3366-4257-b54e-bf98dc1c89c2)
+### App Title Screen
+<img src="https://github.com/user-attachments/assets/e268c9a5-6a83-49b4-a986-fc2776ee9f47" width=30%/>
+
+
+### Adding Expense Screen
+<img src="https://github.com/user-attachments/assets/7ecb23ea-f4d0-48ec-993a-2cee1af8c595" width=30%/>
+
+
+
+### Expense Tracking Screen
+<img src="https://github.com/user-attachments/assets/3b5e7b35-7438-4063-a201-94a4b571b4f9" width=30%/>
+<img src="https://github.com/user-attachments/assets/55cb0a5b-88f5-45bb-8766-63831a4f0936" width=30%/>
+
+
+### Expenses By Category Screen
+<img src="https://github.com/user-attachments/assets/709d6883-cb62-426a-ac4d-92944530cc79" width=30%/>
+
+## Future Improvements
+ - Multi-language support (Currently only in Bulgarian)
+ - Nicer Navigation transitions
+
+## Try the App
+
+You can download the latest version of the Home Budget App for testing purposes:
+
+- [Download Home Budget App (APK)](https://www.dropbox.com/s/https://www.dropbox.com/scl/fi/1ulcc5oiypqb5pyp40qh1/com.companyname.budgethelper-arm64-v8a-Signed.apk?rlkey=w4imv1b1z7ml8t92g4ql4dmor&dl=0)
+
+### Important Notes:
+- This app uses a **self-signed certificate**, which means you may receive security warnings during installation. Please only install if you're comfortable with that.
+- The app is currently in a **beta stage** and is not intended for professional or production use.
+  
+### Installation Instructions for Android:
+1. Download the APK from the link above.
+2. On your device, go to **Settings** > **Security** > **Unknown Sources** and enable it to allow installations from sources other than the Play Store.
+3. Open the APK file and follow the prompts to install the app.
+4. After installation, you can disable "Unknown Sources" for added security.
