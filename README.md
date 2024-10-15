@@ -1,7 +1,8 @@
-# Home Budget App
+# Budget Helper App
 ## Overview
 
-Home Budget App is a simple mobile application built with .NET MAUI, designed to help users manage their expenses efficiently. The app allows users to categorize expenses, track their spending habits, and view financial reports by month and category.
+Budget Helper App is a simple mobile application built with .NET MAUI, designed to help users manage their expenses efficiently. The app allows users to categorize expenses, track their spending habits, and view financial reports by month and category.
+
 
 **Note:** The app is currently available only in <mark>Bulgarian</mark>. 
 
